@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Vehicle } from 'src/app/models/vehicle';
+import { VehicleService } from 'src/app/services/vehicle.service';
 
 @Component({
   selector: 'app-vehiclelist',
@@ -7,9 +11,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehiclelistComponent implements OnInit {
 
-  constructor() { }
+  vehicles: Observable<Vehicle[]>;
+
+  constructor(
+    private vehicleService: VehicleService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
+    this.reloadData();
+  }
+
+  reloadData() {
+    this.vehicles = this.vehicleService.getVehicleList();
+  }
+
+  VehicleEdit(id: string) {
+    //this.router.navigate(['/vehicleedit', id]);
+    this.router.navigate(['/vehicleedit']);
+  }
+
+  VehicleDelete(id: string) {
+    
+    this.vehicleService.deleteVehicle(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error)
+      );
   }
 
 }

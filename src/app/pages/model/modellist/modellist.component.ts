@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModelService } from 'src/app/services/model.service';
 
 @Component({
   selector: 'app-modellist',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModellistComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modelService: ModelService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.reloadData();
+  }
+
+  reloadData() {
+
+  }
+
+  modeldEdit(id: string) {
+    this.router.navigate(['/modeledit', id]);
+  }
+
+  modelDelete(id: string) {
+    
+    this.modelService.deleteModel(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error)
+      );
   }
 
 }
