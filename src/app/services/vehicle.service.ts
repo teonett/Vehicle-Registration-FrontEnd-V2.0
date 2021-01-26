@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { Vehicle } from '../models/vehicle';
 
 @Injectable({
@@ -8,30 +9,65 @@ import { Vehicle } from '../models/vehicle';
 })
 export class VehicleService {
 
-  private baseUrl = 'http://localhost:3000/vehicles';
+  private baseUrl = 'http://localhost:3000/models';
 
   constructor(
     private http: HttpClient
     ) { }
 
-  getVehicleList() : Observable<any>{
-      return this.http.get(`${this.baseUrl}`);
+  httpOptions = {
+      headers: new HttpHeaders ({ 'Content-Type': 'application/json' })
     }
 
-  getVehicleById(id: string){
-    return this.http.get(`${this.baseUrl}/${id}`);
+    getList() : Observable<any>{
+      return this.http.get<Vehicle[]>(this.baseUrl)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
   }
 
-  createVehicle(brand: Vehicle) {
-    return this.http.post(`${this.baseUrl}`, brand);
+  getById(id: string) : Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`)
+    .pipe(
+      retry(2),
+      catchError(this.handleError))
+  }
+
+  create(vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.post<Vehicle>(this.baseUrl, JSON.stringify(vehicle), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
   }
   
-  updateVehicle(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  update(id: string, vehicle: Vehicle): Observable<Vehicle> {
+    return this.http.put<Vehicle>(this.baseUrl, JSON.stringify(vehicle), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  deleteVehicle(id: string) {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  delete(id: string) {
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' })
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`;
+    }
+
+    console.log(errorMessage);
+    
+    return throwError(errorMessage);
+  };
   
 }

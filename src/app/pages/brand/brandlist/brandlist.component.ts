@@ -20,24 +20,24 @@ export class BrandlistComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.reloadData();
+    this.loadData();
   }
 
-  reloadData() {
-    this.brands = this.brandService.getBrandList();
+  loadData() {
+    this.brands = this.brandService.getList();
   }
 
-  brandEdit(id: string) {
+  edit(id: string) {
     this.router.navigate(['/brandedit', id]);
   }
 
-  brandDelete(id: string) {
+  delete(id: string) {
     
-    this.brandService.deleteBrand(id)
+    this.brandService.delete(id)
       .subscribe(
         data => {
           console.log(data);
-          this.reloadData();
+          this.loadData();
         },
         error => console.log(error)
       );

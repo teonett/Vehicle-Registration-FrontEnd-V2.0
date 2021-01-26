@@ -23,7 +23,7 @@ export class VehiclelistComponent implements OnInit {
   }
 
   reloadData() {
-    this.vehicles = this.vehicleService.getVehicleList();
+    this.vehicles = this.vehicleService.getList();
   }
 
   VehicleEdit(id: string) {
@@ -33,7 +33,7 @@ export class VehiclelistComponent implements OnInit {
 
   VehicleDelete(id: string) {
     
-    this.vehicleService.deleteVehicle(id)
+    this.vehicleService.delete(id)
       .subscribe(
         data => {
           console.log(data);

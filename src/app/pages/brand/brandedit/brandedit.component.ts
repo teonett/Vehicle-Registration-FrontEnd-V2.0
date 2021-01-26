@@ -28,7 +28,7 @@ export class BrandeditComponent implements OnInit {
     this.brand = new Brand();
     this.id = this.route.snapshot.params['id'];
     
-    this.brandService.getBrantById(this.id)
+    this.brandService.getById(this.id)
       .subscribe(data => {
         console.log(data)
         this.brand = data;
@@ -37,7 +37,7 @@ export class BrandeditComponent implements OnInit {
   }
 
   saveBrand() {
-    this.brandService.updateBrand(this.id, this.brand)
+    this.brandService.update(this.id, this.brand)
     .subscribe(data => console.log(data), 
     error => console.log(error));
   this.brand = new Brand();

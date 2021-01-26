@@ -10,7 +10,6 @@ import { BrandService } from 'src/app/services/brand.service';
 })
 export class BrandaddComponent implements OnInit {
 
-  bramds: Brand[] = [];
   brand: Brand = new Brand();
   submited = false;
   selectedValue: any;
@@ -24,7 +23,7 @@ export class BrandaddComponent implements OnInit {
   }
 
   saveBrand() {
-    this.brandService.createBrand(this.brand)
+    this.brandService.create(this.brand)
       .subscribe(data => console.log(data), error => 
         console.log(error));
     this.brand = new Brand();

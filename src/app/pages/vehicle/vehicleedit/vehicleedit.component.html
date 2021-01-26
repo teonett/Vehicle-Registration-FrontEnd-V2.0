@@ -1,1 +1,23 @@
-<p>vehicleedit works!</p>
+<div class="container-xl">
+    <div class="table-title">
+        <div class="row">
+            <h2>vehicle</h2>
+        </div>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group col-sm">
+
+            <div class="row">
+                <div class="col-sm">
+                    <small>Description</small>
+                    <input type="text" class="form-control" id="description" name="description" required [(ngModel)]="vehicle.description" maxlength="20">
+                </div>
+            </div>
+            <br>
+            <div class="text-right mb-3">
+                <button type="button" class="btn btn-success btn-sm" (click)="saveData()">SAVE</button>
+                <button type="button" class="btn btn-warning btn-sm" (click)="gotoList()">CANCEL</button>
+            </div>
+        </div>
+    </form>
+</div>

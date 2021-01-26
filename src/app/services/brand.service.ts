@@ -20,21 +20,21 @@ export class BrandService {
       headers: new HttpHeaders ({ 'Content-Type': 'application/json' })
     }
 
-  getBrandList() : Observable<any>{
+  getList() : Observable<any>{
       return this.http.get<Brand[]>(this.baseUrl)
       .pipe(
         retry(2),
         catchError(this.handleError))
   }
 
-  getBrantById(id: string) : Observable<Brand> {
+  getById(id: string) : Observable<Brand> {
     return this.http.get<Brand>(`${this.baseUrl}/${id}`)
     .pipe(
       retry(2),
       catchError(this.handleError))
   }
 
-  createBrand(brand: Brand): Observable<Brand> {
+  create(brand: Brand): Observable<Brand> {
     return this.http.post<Brand>(this.baseUrl, JSON.stringify(brand), this.httpOptions)
       .pipe(
         retry(2),
@@ -42,7 +42,7 @@ export class BrandService {
       )
   }
   
-  updateBrand(id: string, brand: Brand): Observable<Brand> {
+  update(id: string, brand: Brand): Observable<Brand> {
     return this.http.put<Brand>(this.baseUrl, JSON.stringify(brand), this.httpOptions)
       .pipe(
         retry(1),
@@ -50,7 +50,7 @@ export class BrandService {
       )
   }
 
-  deleteBrand(id: string) {
+  delete(id: string) {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' })
       .pipe(
         retry(1),

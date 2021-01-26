@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { Model } from '../models/model';
 
 @Injectable({
@@ -14,24 +15,59 @@ export class ModelService {
     private http: HttpClient
     ) { }
 
-  getModelList() : Observable<any>{
-      return this.http.get(`${this.baseUrl}`);
+  httpOptions = {
+      headers: new HttpHeaders ({ 'Content-Type': 'application/json' })
     }
 
-  getModelById(id: string){
-    return this.http.get(`${this.baseUrl}/${id}`);
+    getList() : Observable<any>{
+      return this.http.get<Model[]>(this.baseUrl)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
   }
 
-  createModel(brand: Model) {
-    return this.http.post(`${this.baseUrl}`, brand);
+  getById(id: string) : Observable<Model> {
+    return this.http.get<Model>(`${this.baseUrl}/${id}`)
+    .pipe(
+      retry(2),
+      catchError(this.handleError))
+  }
+
+  create(model: Model): Observable<Model> {
+    return this.http.post<Model>(this.baseUrl, JSON.stringify(model), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
   }
   
-  updateModel(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  update(id: string, model: Model): Observable<Model> {
+    return this.http.put<Model>(this.baseUrl, JSON.stringify(model), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  deleteModel(id: string) {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  delete(id: string) {
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' })
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`;
+    }
+
+    console.log(errorMessage);
+    
+    return throwError(errorMessage);
+  };
   
 }

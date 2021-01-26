@@ -13,6 +13,8 @@ import { ModeleditComponent } from './pages/model/modeledit/modeledit.component'
 import { VehiclelistComponent } from './pages/vehicle/vehiclelist/vehiclelist.component';
 import { VehicleeditComponent } from './pages/vehicle/vehicleedit/vehicleedit.component';
 import { BrandaddComponent } from './pages/brand/brandadd/brandadd.component';
+import { ModeladdComponent } from './pages/model/modeladd/modeladd.component';
+import { VehicleaddComponent } from './pages/vehicle/vehicleadd/vehicleadd.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { BrandaddComponent } from './pages/brand/brandadd/brandadd.component';
     ModeleditComponent,
     VehiclelistComponent,
     VehicleeditComponent,
-    BrandaddComponent
+    BrandaddComponent,
+    ModeladdComponent,
+    VehicleaddComponent
   ],
   imports: [
     BrowserModule,
