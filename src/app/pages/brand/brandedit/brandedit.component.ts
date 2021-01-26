@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
 import { BrandService } from 'src/app/services/brand.service';
 
@@ -10,34 +10,42 @@ import { BrandService } from 'src/app/services/brand.service';
 })
 export class BrandeditComponent implements OnInit {
 
-  bramds: Brand[] = [];
-  brand: Brand = new Brand();
-  submited = false;
-  selectedValue: any;
+  id: string;
+  brand: Brand;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private brandService: BrandService
   ) { }
 
   ngOnInit(): void {
+    this.loadBrand();
   }
 
-  newBrand() {
-    this.submited = false;
+  loadBrand() {
+
     this.brand = new Brand();
+    this.id = this.route.snapshot.params['id'];
+    
+    this.brandService.getBrantById(this.id)
+      .subscribe(data => {
+        console.log(data)
+        this.brand = data;
+      }, 
+      error => console.log(error));
   }
 
   saveBrand() {
-    this.brandService.createBrand(this.brand)
-      .subscribe(data => console.log(data), error => 
-        console.log(error));
-    this.brand = new Brand();
-    this.gotoList();
+    this.brandService.updateBrand(this.id, this.brand)
+    .subscribe(data => console.log(data), 
+    error => console.log(error));
+  this.brand = new Brand();
+  this.gotoList();
   }
 
-  onSubmit() {
-    this.submited = true;
+
+  onSubmit() {    
     this.saveBrand()
   }
   

@@ -42,8 +42,8 @@ export class BrandService {
       )
   }
   
-  updateBrand(brand: Brand): Observable<Brand> {
-    return this.http.put<Brand>(this.baseUrl + '/' + brand.id, JSON.stringify(brand), this.httpOptions)
+  updateBrand(id: string, brand: Brand): Observable<Brand> {
+    return this.http.put<Brand>(this.baseUrl, JSON.stringify(brand), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

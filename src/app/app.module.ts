@@ -12,6 +12,7 @@ import { ModellistComponent } from './pages/model/modellist/modellist.component'
 import { ModeleditComponent } from './pages/model/modeledit/modeledit.component';
 import { VehiclelistComponent } from './pages/vehicle/vehiclelist/vehiclelist.component';
 import { VehicleeditComponent } from './pages/vehicle/vehicleedit/vehicleedit.component';
+import { BrandaddComponent } from './pages/brand/brandadd/brandadd.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { VehicleeditComponent } from './pages/vehicle/vehicleedit/vehicleedit.co
     ModellistComponent,
     ModeleditComponent,
     VehiclelistComponent,
-    VehicleeditComponent
+    VehicleeditComponent,
+    BrandaddComponent
   ],
   imports: [
     BrowserModule,

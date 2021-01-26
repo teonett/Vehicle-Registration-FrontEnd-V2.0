@@ -1,11 +1,11 @@
 <div class="container-xl">
     <div id="main" class="container-fluid">
         <div id="top" class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-11">
                 <h2>Brand</h2>
             </div>
-            <div class="col-sm-2">
-                <a href="/brandedit" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span> Add New</span></a>
+            <div class="col-sm-1" style="padding-top: 40px;">
+                <a href="/brandadd" class="btn btn-primary"><i class="material-icons">&#xE147;</i> <span></span></a>
             </div>
         </div>  
         <div id="list" class="row">
@@ -13,18 +13,21 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Name</th>						
-                        <th style="text-align: center;">Last Updated Date</th>
-                        <th style="text-align: center;">Action</th>
+                        <th>NAME</th>						
+                        <th style="text-align: center;">LAST UPDATE</th>
+                        <th style="text-align: center;">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let brand of brands | async">
-                        <td style="width: 33%;"><a>{{ brand.description }}</a></td>
-                        <td style="width: 33%; text-align: center">{{ brand.lastUpdateDate | date:'short' }}</td>
-                        <td style="width: 33%; text-align: center">
-                            <button type="button" class="btn btn-warning btn-sm" (click)="brandEdit(brand.id)"><i class="material-icons">&#xE8B8;</i></button>
-                            <button type="button" class="btn btn-danger btn-sm" (click)="brandDelete(brand.id)"><i class="material-icons">&#xE5C9;</i></button>
+                        <td style="width: 40%; vertical-align: middle;"><a>{{ brand.description }}</a></td>
+                        <td style="width: 40%; text-align: center; vertical-align: middle;">{{ brand.lastUpdateDate | date:'short' }}</td>
+                        <td style="width: 20%; text-align: center; vertical-align: middle;">
+                            <div ontouchstart="">
+                                <a (click)="brandEdit(brand.id)" class="btn btn-warning"><i class="material-icons">&#xE8B8;</i> <span></span></a>
+                                &nbsp;&nbsp;
+                                <a (click)="brandDelete(brand.id)" class="btn btn-danger"><i class="material-icons">&#xE5C9;</i> <span></span></a>
+                              </div>
                         </td>
                     </tr>
                 </tbody>

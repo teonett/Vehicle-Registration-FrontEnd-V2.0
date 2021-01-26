@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BrandaddComponent } from './pages/brand/brandadd/brandadd.component';
 import { BrandeditComponent } from './pages/brand/brandedit/brandedit.component';
 
 import { BrandlistComponent } from './pages/brand/brandlist/brandlist.component';
@@ -10,7 +11,8 @@ import { VehiclelistComponent } from './pages/vehicle/vehiclelist/vehiclelist.co
 
 const routes: Routes = [
   { path: 'brandlist', component: BrandlistComponent },
-  { path: 'brandedit', component: BrandeditComponent },
+  { path: 'brandadd', component: BrandaddComponent },
+  { path: 'brandedit/:id', component: BrandeditComponent },
   { path: 'modellist', component: ModellistComponent },
   { path: 'modeledit', component: ModeleditComponent },
   { path: 'vehiclelist', component: VehiclelistComponent },

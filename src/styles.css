@@ -25,10 +25,18 @@ small {
 
 button {
   width: 100px;
-  margin: 0 25px;
+  display: inline-block;
+  margin: 15px 30px;
 }
 
-.font-title {
-  font-size: 3em;
-  font-weight: bold;
+table {
+  font-size: 1.2em;
+}
+
+th {
+  font-size: 1.3em;
+}
+
+td {
+  vertical-align: middle;
 }
