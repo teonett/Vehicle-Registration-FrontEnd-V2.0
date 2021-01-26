@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Brand } from 'src/app/models/brand';
+import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
   selector: 'app-brandedit',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrandeditComponent implements OnInit {
 
-  constructor() { }
+  bramds: Brand[] = [];
+  brand: Brand = new Brand();
+  submited = false;
+  selectedValue: any;
+
+  constructor(
+    private router: Router,
+    private brandService: BrandService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  newBrand() {
+    this.submited = false;
+    this.brand = new Brand();
+  }
+
+  saveBrand() {
+    this.brandService.createBrand(this.brand)
+      .subscribe(data => console.log(data), error => 
+        console.log(error));
+    this.brand = new Brand();
+    this.gotoList();
+  }
+
+  onSubmit() {
+    this.submited = true;
+    this.saveBrand()
+  }
+  
+  gotoList() {
+    this.router.navigate(['/brandlist'])
   }
 
 }

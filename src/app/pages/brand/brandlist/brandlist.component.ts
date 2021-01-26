@@ -28,8 +28,7 @@ export class BrandlistComponent implements OnInit {
   }
 
   brandEdit(id: string) {
-    //this.router.navigate(['/brandedit', id]);
-    this.router.navigate(['/brandedit']);
+    this.router.navigate(['/brandedit', id]);
   }
 
   brandDelete(id: string) {

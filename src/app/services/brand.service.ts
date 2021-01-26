@@ -1,37 +1,73 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Brand } from '../models/brand';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrandService {
 
-  private baseUrl = 'http://localhost:3000/brands';
+  private baseUrl = 'https://localhost:5001/v1/brand'
 
   constructor(
     private http: HttpClient
     ) { }
 
-  getBrandList() : Observable<any>{
-      return this.http.get(`${this.baseUrl}`);
+  httpOptions = {
+      headers: new HttpHeaders ({ 'Content-Type': 'application/json' })
     }
 
-  getBrantById(id: string){
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getBrandList() : Observable<any>{
+      return this.http.get<Brand[]>(this.baseUrl)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
   }
 
-  createBrand(brand: Brand) {
-    return this.http.post(`${this.baseUrl}`, brand);
+  getBrantById(id: string) : Observable<Brand> {
+    return this.http.get<Brand>(`${this.baseUrl}/${id}`)
+    .pipe(
+      retry(2),
+      catchError(this.handleError))
+  }
+
+  createBrand(brand: Brand): Observable<Brand> {
+    return this.http.post<Brand>(this.baseUrl, JSON.stringify(brand), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
   }
   
-  updateBrand(id: string, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  updateBrand(brand: Brand): Observable<Brand> {
+    return this.http.put<Brand>(this.baseUrl + '/' + brand.id, JSON.stringify(brand), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
   deleteBrand(id: string) {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' })
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`;
+    }
+
+    console.log(errorMessage);
+    
+    return throwError(errorMessage);
+  };
 }
