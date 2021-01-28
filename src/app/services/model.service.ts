@@ -9,7 +9,7 @@ import { Model } from '../models/model';
 })
 export class ModelService {
 
-  private baseUrl = 'http://localhost:3000/models';
+  private baseUrl = 'https://localhost:5001/v1/model';
 
   constructor(
     private http: HttpClient

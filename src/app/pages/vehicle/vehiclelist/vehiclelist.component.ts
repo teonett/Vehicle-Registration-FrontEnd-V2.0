@@ -19,25 +19,24 @@ export class VehiclelistComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.reloadData();
+    this.loadData();
   }
 
-  reloadData() {
+  loadData() {
     this.vehicles = this.vehicleService.getList();
   }
 
-  VehicleEdit(id: string) {
-    //this.router.navigate(['/vehicleedit', id]);
-    this.router.navigate(['/vehicleedit']);
+  edit(id: string) {
+    this.router.navigate(['/vehicleedit', id]);
   }
 
-  VehicleDelete(id: string) {
+  delete(id: string) {
     
     this.vehicleService.delete(id)
       .subscribe(
         data => {
           console.log(data);
-          this.reloadData();
+          this.loadData();
         },
         error => console.log(error)
       );

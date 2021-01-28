@@ -2,14 +2,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Vehicle } from '../models/vehicle';
+import { Type } from '../models/type';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VehicleService {
+export class TypeService {
 
-  private baseUrl = 'https://localhost:5001/v1/vehicle'
+  private baseUrl = 'https://localhost:5001/v1/type'
 
   constructor(
     private http: HttpClient
@@ -20,29 +20,29 @@ export class VehicleService {
     }
 
   getList() : Observable<any>{
-      return this.http.get<Vehicle[]>(this.baseUrl)
+      return this.http.get<Type[]>(this.baseUrl)
       .pipe(
         retry(2),
         catchError(this.handleError))
   }
 
-  getById(id: string) : Observable<Vehicle> {
-    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`)
+  getById(id: string) : Observable<Type> {
+    return this.http.get<Type>(`${this.baseUrl}/${id}`)
     .pipe(
       retry(2),
       catchError(this.handleError))
   }
 
-  create(vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.post<Vehicle>(this.baseUrl, JSON.stringify(vehicle), this.httpOptions)
+  create(type: Type): Observable<Type> {
+    return this.http.post<Type>(this.baseUrl, JSON.stringify(type), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
   
-  update(id: string, vehicle: Vehicle): Observable<Vehicle> {
-    return this.http.put<Vehicle>(this.baseUrl, JSON.stringify(vehicle), this.httpOptions)
+  update(id: string, type: Type): Observable<Type> {
+    return this.http.put<Type>(this.baseUrl, JSON.stringify(type), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

@@ -1,16 +1,28 @@
 <div class="container-xl">
     <div class="table-title">
         <div class="row">
-            <h2>Model</h2>
+            <h2>MODEL</h2>
         </div>
     </div>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group col-sm">
 
             <div class="row">
-                <div class="col-sm">
+                <div class="col-lg-4">
                     <small>Description</small>
-                    <input type="text" class="form-control" id="description" name="description" required [(ngModel)]="model.description" maxlength="20">
+                    <input type="text" class="form-control" id="description" name="description" required [(ngModel)]="model.description" maxlength="20" required>
+                </div>
+                <div class="form-group col-lg-4" id="typeVehicleId">
+                    <small for="typeVehicleId">Vehicle Type</small><br>
+                    <select class="form-control" id="typeVehicleId" name="typeVehicleId" [(ngModel)]="model.typeVehicleId" type="text" required>
+                        <option *ngFor="let type of types" value="{{type.id}}">{{ type.description }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-4" id="brandId">
+                    <small for="brandId">Brand</small><br>
+                    <select class="form-control" id="typeVehicleId" name="brandId" [(ngModel)]="model.brandId" type="text" required>
+                        <option *ngFor="let brand of brands" value="{{brand.id}}">{{ brand.description }}</option>
+                    </select>
                 </div>
             </div>
             <br>

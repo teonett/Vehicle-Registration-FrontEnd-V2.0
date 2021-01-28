@@ -19,11 +19,11 @@ export class ModellistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.reloadData();
+    this.loadData();
   }
 
-  reloadData() {
-
+  loadData() {
+    this.models = this.modelService.getList();
   }
 
   edit(id: string) {
@@ -36,7 +36,7 @@ export class ModellistComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.reloadData();
+          this.loadData();
         },
         error => console.log(error)
       );

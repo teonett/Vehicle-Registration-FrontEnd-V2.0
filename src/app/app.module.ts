@@ -15,6 +15,9 @@ import { VehicleeditComponent } from './pages/vehicle/vehicleedit/vehicleedit.co
 import { BrandaddComponent } from './pages/brand/brandadd/brandadd.component';
 import { ModeladdComponent } from './pages/model/modeladd/modeladd.component';
 import { VehicleaddComponent } from './pages/vehicle/vehicleadd/vehicleadd.component';
+import { TypeListComponent } from './pages/type/type-list/type-list.component';
+import { TypeAddComponent } from './pages/type/type-add/type-add.component';
+import { TypeEditComponent } from './pages/type/type-edit/type-edit.component';
 
 
 @NgModule({
@@ -29,7 +32,10 @@ import { VehicleaddComponent } from './pages/vehicle/vehicleadd/vehicleadd.compo
     VehicleeditComponent,
     BrandaddComponent,
     ModeladdComponent,
-    VehicleaddComponent
+    VehicleaddComponent,
+    TypeListComponent,
+    TypeAddComponent,
+    TypeEditComponent
   ],
   imports: [
     BrowserModule,
