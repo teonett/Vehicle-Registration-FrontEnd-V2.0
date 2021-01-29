@@ -5,7 +5,21 @@ Vehicle Registration System, developed in .Net Core in a N-layer model, using En
 
 https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0
 
+<img src="https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0/blob/main/Documents/flowprocess.png">
+
+<img src="https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0/blob/main/Documents/flowprocess.png">
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
+
+**Instructions**
+
+Meeting all requirements, it is not necessary to perform any further action to execute the project, it has migrations that are configured to be executed when running the application.
+
+**Functionalities**
+* Brand (List, Add, Edit and Delete)
+* Vehicle Type (List, Add, Edit and Delete)
+* Vehicle Model (List, Add, Edit and Delete)
+* Vehicle (List, Add, Edit and Delete)
 
 ## Development server
 
