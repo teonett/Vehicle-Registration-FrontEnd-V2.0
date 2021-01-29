@@ -5,9 +5,9 @@ Vehicle Registration System, developed in .Net Core in a N-layer model, using En
 
 https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0
 
-<img src="https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0/blob/main/Documents/flowprocess.png">
+<img src="https://github.com/teonett/Vehicle-Registration-FrontEnd-V2.0/blob/main/Documents/BE-FlowProcess.png">
 
-<img src="https://github.com/teonett/Vehicle-Registration-BackEnd-v2.0/blob/main/Documents/flowprocess.png">
+<img src="https://github.com/teonett/Vehicle-Registration-FrontEnd-V2.0/blob/main/Documents/FE-FlowProcess.png">
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
 
