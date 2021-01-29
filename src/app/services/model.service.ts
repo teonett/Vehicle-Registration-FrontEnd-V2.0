@@ -33,6 +33,13 @@ export class ModelService {
       catchError(this.handleError))
   }
 
+  getByBrandType(brandId: string, vehicleTypeId: string) : Observable<Model> {
+    return this.http.get<Model>(`${this.baseUrl}/${brandId},${vehicleTypeId}`)
+    .pipe(
+      retry(2),
+      catchError(this.handleError))
+  }
+
   create(model: Model): Observable<Model> {
     return this.http.post<Model>(this.baseUrl, JSON.stringify(model), this.httpOptions)
       .pipe(

@@ -17,13 +17,14 @@ import { VehicleService } from 'src/app/services/vehicle.service';
 export class VehicleaddComponent implements OnInit {
 
   vehicle: Vehicle = new Vehicle();
-  submited = false;
-  selectedValue: any;
 
   brands: Brand[] = [];
   types: Type[] = [];
   models: Model[] = [];
-  
+
+  submited = false;
+  selectedValue: any;
+
   constructor(
     private router: Router,
     private vehicleService: VehicleService,
@@ -35,15 +36,7 @@ export class VehicleaddComponent implements OnInit {
   ngOnInit(): void {
     this.listBrands();
     this.listTypes();
-    this.listModels()
-  }
-
-  saveData() {
-    this.vehicleService.create(this.vehicle)
-      .subscribe(data => console.log(data), error => 
-        console.log(error));
-    this.vehicle = new Vehicle();
-    this.gotoList();
+    this.listModels();
   }
 
   listBrands() {
@@ -62,15 +55,29 @@ export class VehicleaddComponent implements OnInit {
     this.modelService.getList().subscribe((models: Model[]) => {
       this.models = models;
     });
+  } 
+
+  // listModelsBrandType(brandId: string, vehicleTypeId: string) {
+  //   this.modelService.getByBrandType(brandId, vehicleTypeId).subscribe((models: Model[]) => {
+  //     this.models = models;
+  //   });
+  // }
+
+  gotoList() {
+    this.router.navigate(['/vehiclelist'])
+  }
+
+  saveData() {
+    this.vehicleService.create(this.vehicle)
+      .subscribe(data => console.log(data), error => 
+        console.log(error));
+    this.vehicle = new Vehicle();
+    this.gotoList();
   }
 
   onSubmit() {
     this.submited = true;
     this.saveData()
-  }
-  
-  gotoList() {
-    this.router.navigate(['/vehiclelist'])
   }
 
 }

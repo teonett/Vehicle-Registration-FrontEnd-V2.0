@@ -1,23 +1,63 @@
 <div class="container-xl">
     <div class="table-title">
         <div class="row">
-            <h2>vehicle</h2>
+            <h2>VEHICLE</h2>
         </div>
     </div>
-    <form (ngSubmit)="onSubmit()">
-        <div class="form-group col-sm">
 
-            <div class="row">
-                <div class="col-sm">
-                    <small>Description</small>
-                    <input type="text" class="form-control" id="description" name="description" required [(ngModel)]="vehicle.description" maxlength="20">
-                </div>
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="row">
+            <div class="col-lg-8">
+                <small>Description</small>
+                <input type="text" class="form-control" id="description" name="description" required [(ngModel)]="vehicle.description" maxlength="20" required>
             </div>
-            <br>
-            <div class="text-right mb-3">
-                <button type="button" class="btn btn-success btn-sm" (click)="saveData()">SAVE</button>
-                <button type="button" class="btn btn-warning btn-sm" (click)="gotoList()">CANCEL</button>
-            </div>
+            
+            <div class="form-group col-lg-2">
+                <small for="yearBuild">Year Build</small>
+                <input type="number" minlength="4" maxlength="4" min="2000" max="9999" class="form-control" id="yearBuild" name="yearBuild" placeholder="2021" required [(ngModel)]="vehicle.yearBuild">
+            </div> 
+            <div class="form-group col-lg-2">
+                <small for="yearModel">Year Model</small>
+                <input type="number" class="form-control" id="yearModel" name="yearModel" placeholder="2021" required [(ngModel)]="vehicle.yearModel">
+            </div>  
+            
         </div>
+
+        <div class="row">
+               
+            <div class="col-lg-4">
+                <small>Brand</small>
+                <select class="form-control" id="brandId" name="brandId" type="text" required>
+                    <option *ngFor="let brand of brands" value="{{brand.id}}">{{ brand.description }}</option>
+                </select>
+            </div>
+
+            <div class="col-lg-4">
+                <small>Vehicle Type</small>
+                <select class="form-control" id="typeVehicleId" name="typeVehicleId" type="text" required>
+                    <option *ngFor="let type of types" value="{{type.id}}">{{ type.description }}</option>
+                </select>
+            </div>
+            
+            <div class="col-lg-4">
+                <small>Vehicle Model</small>
+                <select class="form-control" id="vehicleModelId" name="vehicleModelId" [(ngModel)]="vehicle.vehicleModelId" type="text" required>
+                    <option *ngFor="let model of models" value="{{model.id}}">{{ model.description }}</option>
+                </select>
+            </div>
+
+        </div>    
+        
+        <br>
+        <div class="text-right mb-3">
+            <button type="button" class="btn btn-success btn-sm" (click)="saveData()">SAVE</button>
+            <button type="button" class="btn btn-warning btn-sm" (click)="gotoList()">CANCEL</button>
+        </div>    
+        
     </form>
+
 </div>
+
+
+
